@@ -1,0 +1,21 @@
+.wrapper {
+  --character-position: 0;
+  will-change: top;
+
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  position: absolute;
+  top: calc((var(--character-position) * 1px));
+  transition: top 100ms;
+  height: 100%;
+  width: 100%;
+}
+
+.look-up {
+  transform: rotate(-30deg);
+}
+
+.look-down {
+  transform: rotate(30deg);
+}

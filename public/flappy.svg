@@ -1,0 +1,84 @@
+<svg version="1.0" width="240.000000pt" height="240.000000pt" viewBox="0 0 240.000000 240.000000"
+  preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+  <g>
+    <title>flappy</title>
+    <g transform="matrix(1, 0, 0, 1, 0.004371, -0.036414)" style="pointer-events: none;">
+      <title>outline</title>
+      <path d="M 90 25 L 170 25 L 170 40 L 140 40 L 140 55.036 L 125 55.036 L 125 40 L 90 40 Z" style=""></path>
+      <rect y="40" width="30" height="15" style="" x="60"></rect>
+      <rect x="170" y="40" width="15" height="15" style=""></rect>
+      <rect x="185" y="55" width="15" height="15" style=""></rect>
+      <path d="M 15 70 L 45 70 L 45 55 L 60 55 L 60 70 L 75 70 L 75 85 L 15 85 Z" style=""></path>
+      <rect x="110" y="55" width="15" height="45" style=""></rect>
+      <rect x="125" y="100" width="15" height="15" style=""></rect>
+      <rect x="169.992" y="70" width="15" height="30" style=""></rect>
+      <path d="M 140 115 L 200 115 L 200 70 L 215 70 L 215 115 L 225 115 L 225 130 L 140 130 Z" style=""></path>
+      <rect y="85" width="15" height="45" style=""></rect>
+      <rect x="45" y="175" width="30" height="15" style=""></rect>
+      <rect x="125" y="130" width="15" height="15" style=""></rect>
+      <rect x="110" y="145" width="15" height="15" style=""></rect>
+      <rect x="124.995" y="160" width="15" height="15" style=""></rect>
+      <rect x="225" y="130" width="15" height="15" style=""></rect>
+      <path d="M 140 145 L 225 145 L 225 175.036 L 210 175.036 L 210 160 L 140 160 Z" style=""></path>
+      <rect x="140" y="175" width="70" height="15" style=""></rect>
+      <rect x="75" y="190.002" width="65" height="15" style=""></rect>
+      <rect x="75" y="85" width="15" height="15" style=""></rect>
+      <rect x="15" y="130" width="15" height="15" style=""></rect>
+      <path d="M 30 145 L 74.996 145 L 74.996 160 L 45 160 L 45 175 L 30 175 Z" style=""></path>
+      <rect x="90" y="100" width="15" height="30" style=""></rect>
+      <rect x="75" y="130" width="15" height="15" style=""></rect>
+    </g>
+    <g style="pointer-events: none;">
+      <title>eye</title>
+      <path
+        d="M 185 100 L 185 70 L 200 70 L 200 115 L 155 115 L 155 100 L 140 100 L 140 70 L 125 70 L 125 55 L 140 55 L 140 40 L 170 40 L 170 55 L 185 55 L 185 70 L 170 70 L 170 100 Z"
+        style="fill: rgb(253, 255, 250);">
+        <title>eye</title>
+      </path>
+      <g>
+        <title>eye shadow</title>
+        <g>
+          <rect x="125" y="70" width="15" height="30" style="fill: rgb(245, 241, 241);"></rect>
+          <rect x="140" y="100" width="15" height="15" style="fill: rgb(245, 241, 241);"></rect>
+        </g>
+      </g>
+    </g>
+    <g style="pointer-events: none;">
+      <title>wing</title>
+      <path d="M 90 100 L 90 115 L 75 115 L 75 130 L 30 130 L 30 115 L 15 115 L 15 85 L 75 85 L 75 100 Z"
+        style="fill: rgb(249, 252, 233);">
+        <title>wing</title>
+      </path>
+      <g>
+        <title>wing shadow</title>
+        <rect x="15" y="115" width="15" height="15" style="fill: rgb(244, 255, 56);"></rect>
+        <rect x="30" y="130" width="45" height="15" style="fill: rgb(244, 255, 56);"></rect>
+        <rect x="75" y="115" width="15" height="15" style="fill: rgb(244, 255, 56);"></rect>
+      </g>
+    </g>
+    <g style="pointer-events: none;">
+      <title>body</title>
+      <g style="">
+        <title>body top shadow</title>
+        <rect x="90" y="40" width="35" height="15" style="fill: rgb(244, 255, 56);"></rect>
+        <rect x="60" y="55" width="30" height="15" style="fill: rgb(244, 255, 56);"></rect>
+      </g>
+      <path
+        d="M 75 70 L 90 70 L 90 55 L 110 55 L 110 100 L 125 100 L 125 115.008 L 140 115.008 L 140 130.008 L 125 130.008 L 125 145 L 90 145 L 90 130 L 105 130 L 105 100 L 90 100 L 90 85 L 75 85 Z"
+        style="fill: rgb(245, 243, 48);">
+        <title>body</title>
+      </path>
+      <path
+        d="M 75 145 L 110 145 L 110 160 L 125 160 L 125 175 L 140 175 L 140 190 L 75 190 L 75 175 L 45 175 L 45 160 L 75 160 Z"
+        style="fill: rgb(244, 196, 54);">
+        <title>body bottom shadow</title>
+      </path>
+    </g>
+    <g>
+      <title>mouth</title>
+      <rect x="140" y="130" width="85" height="15" style="fill: rgb(246, 107, 80);"></rect>
+      <rect x="140" y="160" width="70" height="15" style="fill: rgb(246, 107, 80);"></rect>
+      <rect x="125" y="145" width="15" height="15" style="fill: rgb(246, 107, 80);"></rect>
+    </g>
+  </g>
+</svg>

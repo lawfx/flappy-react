@@ -11,11 +11,14 @@
 html,
 body {
   height: 100%;
+  pointer-events: none;
 }
 
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-family: sans-serif;
+  overflow: hidden;
 }
 
 img,
@@ -47,11 +50,6 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
-}
-
-/* Global styles */
-body {
-  font-family: sans-serif;
 }
 
 body {
