@@ -1,0 +1,34 @@
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  --gradient: linear-gradient(90deg,
+      hsl(90, 77%, 25%),
+      hsl(90, 77%, 55%) 25%,
+      hsl(90, 77%, 65%) 30%,
+      hsl(90, 77%, 55%) 40%,
+      hsl(90, 77%, 25%) 75%,
+      hsl(90, 77%, 15%));
+  --pipe-height: 300;
+  --pipe-width: 100;
+}
+
+.cap {
+  width: calc((var(--pipe-width) + 40) * 1px);
+  height: 50px;
+  background: var(--gradient);
+  border: 3px solid var(--border);
+}
+
+.pipe {
+  width: calc(var(--pipe-width) * 1px);
+  height: calc(var(--pipe-height) * 1px);
+  background: var(--gradient);
+  border: 3px solid var(--border);
+  border-top: 0;
+}
