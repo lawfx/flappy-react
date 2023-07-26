@@ -23,7 +23,7 @@ export default function Character() {
 
   React.useEffect(() => {
     function handleClick() {
-      setCharPos(pos => pos - 50);
+      setCharPos(pos => pos - 100);
       setCharState(CharState.RISING);
     }
 
@@ -34,12 +34,12 @@ export default function Character() {
 
   React.useEffect(() => {
     const intervalId = setInterval(() => {
-      charPos < 200 ? setCharPos(pos => pos + 20) : null;
+      setCharPos(pos => pos < 200 ? pos + 10 : pos);
       setCharState(CharState.FALLING);
-    }, 100);
+    }, 33);
 
     return () => clearInterval(intervalId);
-  }, [charPos]);
+  }, []);
 
   const charPosStyle = { '--character-position': charPos } as React.CSSProperties;
 

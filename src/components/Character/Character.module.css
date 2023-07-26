@@ -14,8 +14,10 @@
 
 .look-up {
   transform: rotate(-30deg);
+  transition: transform 30ms;
 }
 
 .look-down {
   transform: rotate(30deg);
+  transition: transform 500ms;
 }
