@@ -11,7 +11,6 @@
 html,
 body {
   height: 100%;
-  pointer-events: none;
 }
 
 body {
@@ -53,7 +52,7 @@ h6 {
 }
 
 body {
-  --ground-height: 150px;
+  --ground-height: 80px;
   --grass-height: 20px;
 
   --light-grass: hsl(90, 77%, 61%);
