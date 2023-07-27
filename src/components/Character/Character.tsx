@@ -12,8 +12,8 @@ enum CharState {
 
 const CharStateToDirectionClassMap: { [key in CharState]: string } = {
   [CharState.IDLE]: '',
-  [CharState.RISING]: 'look-up',
-  [CharState.FALLING]: 'look-down'
+  [CharState.RISING]: 'lookUp',
+  [CharState.FALLING]: 'lookDown'
 }
 
 export default function Character() {
@@ -23,7 +23,10 @@ export default function Character() {
 
   React.useEffect(() => {
     function handleClick() {
-      setCharPos(pos => pos - 100);
+      setCharPos(pos => {
+        const newPos = pos - .3;
+        return newPos >= 0 ? newPos : 0;
+      });
       setCharState(CharState.RISING);
     }
 
@@ -34,7 +37,10 @@ export default function Character() {
 
   React.useEffect(() => {
     const intervalId = setInterval(() => {
-      setCharPos(pos => pos < 200 ? pos + 10 : pos);
+      setCharPos(pos => {
+        const newPos = pos + .02;
+        return newPos <= 1 ? newPos : 1;
+      });
       setCharState(CharState.FALLING);
     }, 33);
 
@@ -44,10 +50,12 @@ export default function Character() {
   const charPosStyle = { '--character-position': charPos } as React.CSSProperties;
 
   return (
-    <div style={charPosStyle} className={styles.wrapper}>
-      <div className={`${styles.character} ${styles[CharStateToDirectionClassMap[charState]]}`}>
-        <Image width={100} height={100} src={flappyAvatar} alt='' />
+    <div className={styles.wrapper}>
+      <div className={styles.characterWrapper}>
+        <div style={charPosStyle} className={`${styles.character} ${styles[CharStateToDirectionClassMap[charState]]}`}>
+          <Image width={75} height={75} src={flappyAvatar} alt='' />
+        </div>
       </div>
-    </div >
+    </div>
   );
 }

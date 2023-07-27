@@ -1,21 +1,12 @@
 .wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-
   --obstacle-spacing: 350;
-}
-
-.course {
-  height: calc(100% - (var(--grass-height) + var(--ground-height)));
+  height: 100%;
   position: relative;
 }
 
 .obstacle {
   height: 100%;
-  animation: slide 2s linear infinite;
+  /* animation: slide 2s linear infinite; */
 }
 
 @keyframes slide {

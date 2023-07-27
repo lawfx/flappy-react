@@ -1,0 +1,7 @@
+.wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - (var(--grass-height) + var(--ground-height)));
+}

@@ -1,23 +1,35 @@
 .wrapper {
-  --character-position: 0;
-  will-change: top;
-
   display: grid;
-  justify-content: center;
-  align-content: center;
+  grid-template-columns: 30% fit-content(100%) 1fr;
+  grid-template-areas: 'space-left character space-right';
   position: absolute;
-  top: calc((var(--character-position) * 1px));
-  transition: top 100ms;
+  top: 0;
   height: 100%;
   width: 100%;
+
+  user-select: none;
 }
 
-.look-up {
-  transform: rotate(-30deg);
-  transition: transform 30ms;
+.characterWrapper {
+  grid-area: character;
+  position: relative;
 }
 
-.look-down {
-  transform: rotate(30deg);
-  transition: transform 500ms;
+.character {
+  --character-position: 0;
+
+  will-change: top;
+  position: relative;
+  top: clamp(0%, calc(var(--character-position) * 100%), calc(100% - 75px));
+  transition: top 100ms;
+}
+
+.lookUp {
+  /* transform: rotate(-30deg);
+  transition: transform 30ms; */
+}
+
+.lookDown {
+  /* transform: rotate(30deg);
+  transition: transform 500ms; */
 }
