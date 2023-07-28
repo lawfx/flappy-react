@@ -3,7 +3,7 @@
   display: grid;
   grid-template-areas:
     'top'
-    'space'
+    'passage'
     'bottom';
   grid-template-rows: calc(var(--top-pipe-height) * 1%) 200px 1fr;
   --top-pipe-height: 20;
@@ -11,6 +11,19 @@
 
 .top {
   grid-area: top;
+}
+
+.passage {
+  grid-area: passage;
+  position: relative;
+}
+
+.scoreArea {
+  height: 100%;
+  width: 30px;
+  position: absolute;
+  transform: translateX(100%);
+  right: 0;
 }
 
 .bottom {

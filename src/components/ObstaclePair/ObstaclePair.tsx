@@ -32,7 +32,9 @@ export default function ObstaclePair({ id }: ObstaclePairProps) {
       <div ref={topObstacleRef} className={styles.top}>
         <Obstacle flipped={true} />
       </div>
-      <div ref={scoreAreaRef} className={styles.passage}></div>
+      <div className={styles.passage}>
+        <div ref={scoreAreaRef} className={styles.scoreArea}></div>
+      </div>
       <div ref={bottomObstacleRef} className={styles.bottom}>
         <Obstacle />
       </div>
