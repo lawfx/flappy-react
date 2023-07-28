@@ -1,20 +1,24 @@
 .wrapper {
-  --obstacle-spacing: 350;
+  --obstacle-cross-time: 1;
+
   height: 100%;
   position: relative;
 }
 
 .obstacle {
   height: 100%;
-  /* animation: slide 2s linear infinite; */
+  animation: slide calc(var(--obstacle-cross-time) * 1ms) linear forwards;
+  position: absolute;
 }
 
 @keyframes slide {
   from {
+    left: 100%;
     transform: translateX(100%);
   }
 
   to {
+    left: 0%;
     transform: translateX(-100%);
   }
 }
