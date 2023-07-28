@@ -3,6 +3,9 @@ import React from 'react';
 import styles from './Character.module.css';
 import Image from 'next/image';
 import flappyAvatar from '../../../public/flappy.svg';
+import useGameContext from '@/hooks/useGameContext';
+import useWindowClick from '@/hooks/useWindowClick';
+import { GameStateActionType, GameStatus } from '../GameProvider/GameProvider';
 
 enum CharState {
   IDLE,
@@ -16,36 +19,53 @@ const CharStateToDirectionClassMap: { [key in CharState]: string } = {
   [CharState.FALLING]: 'lookDown'
 }
 
+const CHARACTER_DROP_RATE = .02;
+const CHARACTER_BUMP_RATE = .3;
+
 export default function Character() {
 
-  const [charPos, setCharPos] = React.useState(0);
+  const [charPos, setCharPos] = React.useState(0.5);
   const [charState, setCharState] = React.useState(CharState.IDLE);
+  const { state, dispatch } = useGameContext();
 
-  React.useEffect(() => {
-    function handleClick() {
-      setCharPos(pos => {
-        const newPos = pos - .3;
-        return newPos >= 0 ? newPos : 0;
-      });
-      setCharState(CharState.RISING);
+  const gameStatus = state.status;
+
+  const bumpCharacter = React.useCallback(() => {
+    setCharPos(pos => {
+      const newPos = pos - CHARACTER_BUMP_RATE;
+      return newPos >= 0 ? newPos : 0;
+    });
+    setCharState(CharState.RISING);
+  }, []);
+
+  const dropCharacter = React.useCallback(() => {
+    if (gameStatus !== GameStatus.Playing) return;
+
+    const predictedNewCharPos = charPos + CHARACTER_DROP_RATE;
+    const newCharPos = predictedNewCharPos <= 1 ? predictedNewCharPos : 1;
+    setCharPos(newCharPos);
+    setCharState(CharState.FALLING);
+    if (newCharPos === 1) {
+      dispatch({ type: GameStateActionType.EndGame });
+    }
+  }, [gameStatus, charPos]);
+
+  useWindowClick(() => {
+    if (gameStatus === GameStatus.Ended) return;
+    if (gameStatus === GameStatus.Waiting) {
+      dispatch({ type: GameStateActionType.StartGame });
     }
 
-    window.addEventListener('pointerdown', handleClick);
-
-    return () => window.removeEventListener('pointerdown', handleClick);
-  }, []);
+    bumpCharacter();
+  }, [gameStatus]);
 
   React.useEffect(() => {
     const intervalId = setInterval(() => {
-      setCharPos(pos => {
-        const newPos = pos + .02;
-        return newPos <= 1 ? newPos : 1;
-      });
-      setCharState(CharState.FALLING);
+      dropCharacter();
     }, 33);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [dropCharacter]);
 
   const charPosStyle = { '--character-position': charPos } as React.CSSProperties;
 
