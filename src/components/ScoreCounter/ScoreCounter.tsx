@@ -3,7 +3,7 @@ import styles from './ScoreCounter.module.css';
 import { GameStatus } from "../GameProvider/GameProvider";
 
 export default function ScoreCounter() {
-  const { state } = useGameContext();
+  const [state] = useGameContext();
 
   return (
     <>{

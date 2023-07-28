@@ -4,9 +4,11 @@ import ObstaclePair from '../ObstaclePair/ObstaclePair';
 import styles from './ObstacleCourse.module.css';
 import useGameContext from '@/hooks/useGameContext';
 import { GameStatus } from '../GameProvider/GameProvider';
+import useCollisionDetectionContext from '@/hooks/useCollisionDetectionContext';
+import { CollisionDetectionActionType } from '../CollisionDetectionProvider/CollisionDetectionProvider';
 
 interface Obstacle {
-  id: string;
+  id: number;
 }
 
 const TIME_TO_CROSS_HUNDRED_PIXELS = 500; //ms
@@ -15,12 +17,13 @@ const TIME_TO_SPAWN = 1500; //ms
 export default function ObstacleCourse() {
 
   const [obstacles, setObstacles] = React.useState<Obstacle[]>([]);
-  const { state } = useGameContext();
-  const ref = React.useRef<HTMLDivElement>(null);
+  const [state] = useGameContext();
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [obstacleTime, setObstacleTime] = React.useState(0);
+  const [, collisionDetectionDispatch] = useCollisionDetectionContext();
 
   React.useEffect(() => {
-    const width = ref.current?.offsetWidth;
+    const width = wrapperRef.current?.offsetWidth;
     if (!width) return;
     setObstacleTime((width / 100) * TIME_TO_CROSS_HUNDRED_PIXELS);
   }, []);
@@ -31,24 +34,25 @@ export default function ObstacleCourse() {
     if (gameStatus !== GameStatus.Playing) return;
 
     const intervalId = setInterval(() => {
-      const id = crypto.randomUUID();
+      const id = Math.random();
       setObstacles(obs => [...obs, { id }]);
     }, TIME_TO_SPAWN);
 
     return () => clearInterval(intervalId);
   }, [gameStatus]);
 
-  const removeElement = React.useCallback((id: string) => {
+  const removeElement = React.useCallback((id: number) => {
     setObstacles(obs => obs.filter(o => o.id !== id));
+    collisionDetectionDispatch({ type: CollisionDetectionActionType.RemoveObstacle, id });
   }, []);
 
   const style = React.useMemo(() => ({ '--obstacle-cross-time': obstacleTime } as React.CSSProperties), [obstacleTime]);
 
   return (
-    <div ref={ref} style={style} className={styles.wrapper}>
+    <div ref={wrapperRef} style={style} className={styles.wrapper}>
       {obstacles.map(({ id }) => (
         <div onAnimationEnd={() => removeElement(id)} key={id} className={styles.obstacle}>
-          <ObstaclePair />
+          <ObstaclePair id={id} />
         </div>
       ))}
     </div>

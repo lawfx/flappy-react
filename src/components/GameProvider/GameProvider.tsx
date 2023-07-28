@@ -35,19 +35,19 @@ function reducer(state: GameState, action: GameStateAction): GameState {
       return { ...state, status: GameStatus.Ended, highestScore: newHighscore };
     case GameStateActionType.IncreaseScore:
       return { ...state, currentScore: state.currentScore + 1 };
+    case GameStateActionType.ResetGame:
+      return { ...state, status: GameStatus.Waiting };
   }
 }
 
-const GameContext = React.createContext<{ state: GameState, dispatch: React.Dispatch<GameStateAction> }>({} as any);
+const GameContext = React.createContext<[GameState, React.Dispatch<GameStateAction>]>([] as any);
 
 export default function GameProvider({ children }: GameProviderProps) {
 
   const [state, dispatch] = React.useReducer(reducer, { status: GameStatus.Waiting, currentScore: 0, highestScore: 0 });
 
-  const value = React.useMemo(() => ({ state, dispatch }), [state]);
-
   return (
-    <GameContext.Provider value={value}>
+    <GameContext.Provider value={[state, dispatch]}>
       {children}
     </GameContext.Provider>
   );

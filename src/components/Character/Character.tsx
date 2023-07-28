@@ -6,6 +6,8 @@ import flappyAvatar from '../../../public/flappy.svg';
 import useGameContext from '@/hooks/useGameContext';
 import useWindowClick from '@/hooks/useWindowClick';
 import { GameStateActionType, GameStatus } from '../GameProvider/GameProvider';
+import useCollisionDetectionContext from '@/hooks/useCollisionDetectionContext';
+import { CollisionDetectionActionType } from '../CollisionDetectionProvider/CollisionDetectionProvider';
 
 enum CharState {
   IDLE,
@@ -26,9 +28,15 @@ export default function Character() {
 
   const [charPos, setCharPos] = React.useState(0.5);
   const [charState, setCharState] = React.useState(CharState.IDLE);
-  const { state, dispatch } = useGameContext();
+  const [gameState, gameStateDispatch] = useGameContext();
+  const [_, collisionDetectionDispatch] = useCollisionDetectionContext();
+  const ref = React.useRef(null);
 
-  const gameStatus = state.status;
+  const gameStatus = gameState.status;
+
+  React.useEffect(() => {
+    collisionDetectionDispatch({ type: CollisionDetectionActionType.SetCharacter, ref: ref.current });
+  }, []);
 
   const bumpCharacter = React.useCallback(() => {
     setCharPos(pos => {
@@ -46,14 +54,14 @@ export default function Character() {
     setCharPos(newCharPos);
     setCharState(CharState.FALLING);
     if (newCharPos === 1) {
-      dispatch({ type: GameStateActionType.EndGame });
+      gameStateDispatch({ type: GameStateActionType.EndGame });
     }
   }, [gameStatus, charPos]);
 
   useWindowClick(() => {
     if (gameStatus === GameStatus.Ended) return;
     if (gameStatus === GameStatus.Waiting) {
-      dispatch({ type: GameStateActionType.StartGame });
+      gameStateDispatch({ type: GameStateActionType.StartGame });
     }
 
     bumpCharacter();
@@ -72,7 +80,7 @@ export default function Character() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.characterWrapper}>
-        <div style={charPosStyle} className={`${styles.character} ${styles[CharStateToDirectionClassMap[charState]]}`}>
+        <div ref={ref} style={charPosStyle} className={`${styles.character} ${styles[CharStateToDirectionClassMap[charState]]}`}>
           <Image width={75} height={75} src={flappyAvatar} alt='' />
         </div>
       </div>
