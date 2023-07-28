@@ -20,7 +20,7 @@ const CharStateToDirectionClassMap: { [key in CharState]: string } = {
 }
 
 const CHARACTER_DROP_RATE = .02;
-const CHARACTER_BUMP_RATE = .3;
+const CHARACTER_BUMP_RATE = .2;
 
 export default function Character() {
 
