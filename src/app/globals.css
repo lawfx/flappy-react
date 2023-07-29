@@ -64,5 +64,5 @@ body {
   --dirt-shadow: hsl(54, 59%, 50%);
 
   /* tweak */
-  --grass-movement-speed: 0s;
+  --grass-movement-speed: 10s;
 }

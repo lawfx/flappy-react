@@ -10,11 +10,13 @@
 }
 
 .grass {
+  --grass-animation-state: running;
   z-index: 1;
   flex-basis: var(--grass-height);
   background: repeating-linear-gradient(-45deg, var(--dark-grass), var(--dark-grass) 13px, var(--light-grass) 5px, var(--light-grass) 26px);
   background-size: 300% 100%;
   animation: moving-grass var(--grass-movement-speed) linear infinite;
+  animation-play-state: var(--grass-animation-state);
   border-top: 3px solid var(--border);
 }
 

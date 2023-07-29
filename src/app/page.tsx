@@ -12,8 +12,8 @@ import ScoreCounter from '@/components/ScoreCounter/ScoreCounter';
 export default function Home() {
   return (
     <main className={styles.wrapper}>
-      <Background />
       <GameProvider>
+        <Background />
         <PlayableArea>
           <CollisionDetectionProvider>
             <ObstacleCourse />
