@@ -19,6 +19,7 @@ interface GameState {
 enum GameStateActionType {
   StartGame,
   EndGame,
+  ResetGame,
   IncreaseScore
 }
 
@@ -29,14 +30,14 @@ interface GameStateAction {
 function reducer(state: GameState, action: GameStateAction): GameState {
   switch (action.type) {
     case GameStateActionType.StartGame:
-      return { ...state, status: GameStatus.Playing, currentScore: 0 };
+      return { ...state, status: GameStatus.Playing };
     case GameStateActionType.EndGame:
       const newHighscore = state.currentScore > state.highestScore ? state.currentScore : state.highestScore;
       return { ...state, status: GameStatus.Ended, highestScore: newHighscore };
     case GameStateActionType.IncreaseScore:
       return { ...state, currentScore: state.currentScore + 1 };
     case GameStateActionType.ResetGame:
-      return { ...state, status: GameStatus.Waiting };
+      return { ...state, currentScore: 0, status: GameStatus.Waiting };
   }
 }
 

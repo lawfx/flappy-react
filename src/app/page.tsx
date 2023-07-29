@@ -3,6 +3,7 @@ import styles from './page.module.css';
 import Background from '@/components/Background/Background';
 import Character from '@/components/Character/Character';
 import CollisionDetectionProvider from '@/components/CollisionDetectionProvider/CollisionDetectionProvider';
+import EndScreen from '@/components/EndScreen/EndScreen';
 import GameProvider from '@/components/GameProvider/GameProvider';
 import ObstacleCourse from '@/components/ObstacleCourse/ObstacleCourse';
 import PlayableArea from '@/components/PlayableArea/PlayableArea';
@@ -20,6 +21,7 @@ export default function Home() {
           </CollisionDetectionProvider>
           <ScoreCounter />
         </PlayableArea>
+        <EndScreen />
       </GameProvider>
     </main>
   )
