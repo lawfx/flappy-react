@@ -7,7 +7,8 @@ interface GameProviderProps {
 enum GameStatus {
   Waiting,
   Playing,
-  Ended
+  Ended,
+  Reset //single frame status for cleaning things up
 }
 
 interface GameState {
@@ -20,6 +21,7 @@ enum GameStateActionType {
   StartGame,
   EndGame,
   ResetGame,
+  RestartGame,
   IncreaseScore
 }
 
@@ -37,7 +39,9 @@ function reducer(state: GameState, action: GameStateAction): GameState {
     case GameStateActionType.IncreaseScore:
       return { ...state, currentScore: state.currentScore + 1 };
     case GameStateActionType.ResetGame:
-      return { ...state, currentScore: 0, status: GameStatus.Waiting };
+      return { ...state, currentScore: 0, status: GameStatus.Reset };
+    case GameStateActionType.RestartGame:
+      return { ...state, status: GameStatus.Waiting };
   }
 }
 
@@ -46,6 +50,11 @@ const GameContext = React.createContext<[GameState, React.Dispatch<GameStateActi
 export default function GameProvider({ children }: GameProviderProps) {
 
   const [state, dispatch] = React.useReducer(reducer, { status: GameStatus.Waiting, currentScore: 0, highestScore: 0 });
+
+  React.useEffect(() => {
+    if (state.status !== GameStatus.Reset) return;
+    dispatch({ type: GameStateActionType.RestartGame });
+  }, [state.status]);
 
   return (
     <GameContext.Provider value={[state, dispatch]}>

@@ -23,10 +23,11 @@ const CharStateToDirectionClassMap: { [key in CharState]: string } = {
 
 const CHARACTER_DROP_RATE = .02;
 const CHARACTER_BUMP_RATE = .2;
+const INITIAL_CHAR_POSITION = 0.5;
 
 export default function Character() {
 
-  const [charPos, setCharPos] = React.useState(0.5);
+  const [charPos, setCharPos] = React.useState(INITIAL_CHAR_POSITION);
   const [charState, setCharState] = React.useState(CharState.IDLE);
   const [gameState, gameStateDispatch] = useGameContext();
   const [_, collisionDetectionDispatch] = useCollisionDetectionContext();
@@ -37,6 +38,12 @@ export default function Character() {
   React.useEffect(() => {
     collisionDetectionDispatch({ type: CollisionDetectionActionType.SetCharacter, ref: ref.current });
   }, []);
+
+  React.useEffect(() => {
+    if (gameStatus !== GameStatus.Reset) return;
+
+    setCharPos(INITIAL_CHAR_POSITION);
+  }, [gameStatus]);
 
   const bumpCharacter = React.useCallback(() => {
     setCharPos(pos => {

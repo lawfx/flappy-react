@@ -19,17 +19,19 @@ export default function ObstacleCourse() {
   const [obstacles, setObstacles] = React.useState<Obstacle[]>([]);
   const [state] = useGameContext();
   const wrapperRef = React.useRef<HTMLDivElement>(null);
-  const [obstacleTime, setObstacleTime] = React.useState(0);
+  const [obstacleSpeed, setObstacleSpeed] = React.useState(0);
   const [, collisionDetectionDispatch] = useCollisionDetectionContext();
-
-  React.useEffect(() => {
-    const width = wrapperRef.current?.offsetWidth;
-    if (!width) return;
-    setObstacleTime((width / 100) * TIME_TO_CROSS_HUNDRED_PIXELS);
-  }, []);
 
   const gameStatus = state.status;
 
+  //calculate the speed of the obstacles
+  React.useEffect(() => {
+    const width = wrapperRef.current?.offsetWidth;
+    if (!width) return;
+    setObstacleSpeed((width / 100) * TIME_TO_CROSS_HUNDRED_PIXELS);
+  }, []);
+
+  //spawn obstacles
   React.useEffect(() => {
     if (gameStatus !== GameStatus.Playing) return;
 
@@ -41,17 +43,27 @@ export default function ObstacleCourse() {
     return () => clearInterval(intervalId);
   }, [gameStatus]);
 
-  const removeElement = React.useCallback((id: number) => {
+  //clear obstacles on reset
+  React.useEffect(() => {
+    if (gameStatus !== GameStatus.Reset) return;
+
+    setObstacles([]);
+  }, [gameStatus, obstacles]);
+
+  const removeObstacle = React.useCallback((id: number) => {
     setObstacles(obs => obs.filter(o => o.id !== id));
     collisionDetectionDispatch({ type: CollisionDetectionActionType.RemoveObstacle, id });
   }, []);
 
-  const style = React.useMemo(() => ({ '--obstacle-cross-time': obstacleTime } as React.CSSProperties), [obstacleTime]);
+  const style = React.useMemo(() => ({
+    '--obstacle-speed': obstacleSpeed,
+    '--obstacle-animation-state': gameStatus === GameStatus.Playing ? 'running' : 'paused'
+  } as React.CSSProperties), [obstacleSpeed, gameStatus]);
 
   return (
     <div ref={wrapperRef} style={style} className={styles.wrapper}>
       {obstacles.map(({ id }) => (
-        <div onAnimationEnd={() => removeElement(id)} key={id} className={styles.obstacle}>
+        <div onAnimationEnd={() => removeObstacle(id)} key={id} className={styles.obstacle}>
           <ObstaclePair id={id} />
         </div>
       ))}

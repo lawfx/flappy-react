@@ -22,13 +22,15 @@ interface CollisionDetectionState {
 enum CollisionDetectionActionType {
   SetCharacter,
   AddObstacle,
-  RemoveObstacle
+  RemoveObstacle,
+  ClearAllObstacles
 }
 
 type CollisionDetectionAction =
   CollisionDetectionActionSetCharacter |
   CollisionDetectionActionAddObstacle |
-  CollisionDetectionActionRemoveObstacle;
+  CollisionDetectionActionRemoveObstacle |
+  CollisionDetectionActionClearAllObstacles;
 
 interface CollisionDetectionActionSetCharacter {
   type: CollisionDetectionActionType.SetCharacter;
@@ -48,6 +50,10 @@ interface CollisionDetectionActionRemoveObstacle {
   id: number;
 }
 
+interface CollisionDetectionActionClearAllObstacles {
+  type: CollisionDetectionActionType.ClearAllObstacles;
+}
+
 function reducer(state: CollisionDetectionState, action: CollisionDetectionAction): CollisionDetectionState {
   switch (action.type) {
     case CollisionDetectionActionType.SetCharacter:
@@ -58,6 +64,9 @@ function reducer(state: CollisionDetectionState, action: CollisionDetectionActio
 
     case CollisionDetectionActionType.RemoveObstacle:
       return { ...state, obstacles: state.obstacles.filter(o => o.id !== action.id) };
+
+    case CollisionDetectionActionType.ClearAllObstacles:
+      return { ...state, obstacles: [] };
   }
 }
 
@@ -106,6 +115,12 @@ export default function CollisionDetectionProvider({ children }: CollisionDetect
 
     return () => clearInterval(intervalId);
   }, [state, gameStatus]);
+
+  React.useEffect(() => {
+    if (gameStatus !== GameStatus.Reset) return;
+
+    dispatch({ type: CollisionDetectionActionType.ClearAllObstacles });
+  }, [gameStatus, state.obstacles]);
 
   return (
     <CollisionDetectionContext.Provider value={[state, dispatch]}>

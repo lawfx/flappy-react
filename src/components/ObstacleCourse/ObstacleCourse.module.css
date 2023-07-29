@@ -1,5 +1,6 @@
 .wrapper {
-  --obstacle-cross-time: 1;
+  --obstacle-speed: 1;
+  --obstacle-animation-state: running;
 
   height: 100%;
   position: relative;
@@ -7,9 +8,11 @@
 
 .obstacle {
   height: 100%;
-  animation: slide calc(var(--obstacle-cross-time) * 1ms) linear forwards;
+  animation: slide calc(var(--obstacle-speed) * 1ms) linear forwards;
   position: absolute;
+  animation-play-state: var(--obstacle-animation-state);
 }
+
 
 @keyframes slide {
   from {
