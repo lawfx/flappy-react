@@ -22,7 +22,7 @@
   height: 100%;
   width: 30px;
   position: absolute;
-  transform: translateX(100%);
+  transform: translateX(calc(100% + 20px));
   right: 0;
 }
 
