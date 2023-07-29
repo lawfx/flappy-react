@@ -1,0 +1,16 @@
+.wrapper {
+  height: 100%;
+  position: relative;
+}
+
+.townscape {
+  filter: blur(1px);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: -70px;
+  background-image: url('../../../public/background/townscape.svg');
+  background-position: center bottom;
+  background-repeat: repeat-x;
+  background-size: auto 40%;
+}

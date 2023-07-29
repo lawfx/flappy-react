@@ -56,6 +56,7 @@ body {
   --ground-height: 80px;
   --grass-height: 20px;
 
+  --sky: hsl(185, 57%, 59%);
   --light-grass: hsl(90, 77%, 61%);
   --dark-grass: hsl(89, 75%, 43%);
   --border: hsl(335, 15%, 32%);
