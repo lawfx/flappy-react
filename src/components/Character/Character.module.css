@@ -16,21 +16,25 @@
   position: relative;
 }
 
-.character {
+.characterBoundingBox {
   --character-position: 0;
 
-  will-change: top;
   position: relative;
+  will-change: top;
   top: clamp(0%, calc(var(--character-position) * 100%), calc(100% - 75px));
-  transition: top 100ms;
+  transition: top 150ms;
+}
+
+.character {
+  will-change: transform;
+  transition: transform 100ms;
 }
 
 .lookUp {
-  /* transform: rotate(-30deg);
-  transition: transform 30ms; */
+  transform: rotate(-30deg);
 }
 
 .lookDown {
-  /* transform: rotate(30deg);
-  transition: transform 500ms; */
+  transform: rotate(90deg);
+  transition: transform 400ms;
 }
