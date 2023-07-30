@@ -20,31 +20,35 @@ const CharStateToDirectionClassMap: { [key in CharState]: string } = {
   [CharState.IDLE]: 'idle',
   [CharState.RISING]: 'lookUp',
   [CharState.FALLING]: 'lookDown',
-  [CharState.DEAD]: 'dead'
+  [CharState.DEAD]: 'lookDown'
 }
 
 const CHARACTER_SIZE = 65; //px
-const CHARACTER_DROP_RATE = .04;
-const CHARACTER_BUMP_RATE = .3;
-const INITIAL_CHAR_POSITION = 0.5;
+const CHARACTER_DROP_RATE = 20; //px
+const CHARACTER_BUMP_RATE = 150; //px
 const DROP_INTERVAL = 33; //ms
 const TIME_PASS_TO_SET_AS_FALLING = 300; //ms
 
 export default function Character() {
 
-  const [charPos, setCharPos] = React.useState(INITIAL_CHAR_POSITION);
+  const [charPos, setCharPos] = React.useState(0);
   const [charState, setCharState] = React.useState(CharState.IDLE);
+  const [areaHeight, setAreaHeight] = React.useState(0);
   const [fallingForTime, setFallingForTime] = React.useState(0);
   const [gameState, gameStateDispatch] = useGameContext();
   const [_, collisionDetectionDispatch] = useCollisionDetectionContext();
   const ref = React.useRef(null);
+  const wrapperRef = React.useRef<HTMLDivElement>(null);
 
   const gameStatus = gameState.status;
+
+  const MAX_HEIGHT = React.useMemo(() => - CHARACTER_SIZE / 2, []);
+  const MIN_HEIGHT = React.useMemo(() => areaHeight - CHARACTER_SIZE / 2, [areaHeight]);
 
   const bumpCharacter = React.useCallback(() => {
     setCharPos(pos => {
       const newPos = pos - CHARACTER_BUMP_RATE;
-      return newPos >= 0 ? newPos : 0;
+      return newPos >= MAX_HEIGHT ? newPos : MAX_HEIGHT;
     });
     setFallingForTime(0);
     setCharState(CharState.RISING);
@@ -56,7 +60,7 @@ export default function Character() {
     if (charState === CharState.DEAD) return;
 
     const predictedNewCharPos = charPos + CHARACTER_DROP_RATE;
-    const newCharPos = predictedNewCharPos <= 1 ? predictedNewCharPos : 1;
+    const newCharPos = predictedNewCharPos <= MIN_HEIGHT ? predictedNewCharPos : MIN_HEIGHT;
     setCharPos(newCharPos);
 
     const newFallingForTime = fallingForTime + DROP_INTERVAL;
@@ -66,13 +70,20 @@ export default function Character() {
       setCharState(CharState.FALLING);
     }
 
-    if (newCharPos === 1) {
+    if (newCharPos >= MIN_HEIGHT) {
       setCharState(CharState.DEAD);
       if (gameStatus !== GameStatus.Ended) {
         gameStateDispatch({ type: GameStateActionType.EndGame });
       }
     }
   }, [gameStatus, charPos, charState, fallingForTime]);
+
+  React.useEffect(() => {
+    const height = wrapperRef.current?.offsetHeight;
+    if (!height) return;
+    setAreaHeight(height);
+    setCharPos(height / 2);
+  }, []);
 
   //setup character for collision detection
   React.useEffect(() => {
@@ -83,7 +94,7 @@ export default function Character() {
   React.useEffect(() => {
     if (gameStatus !== GameStatus.Reset) return;
 
-    setCharPos(INITIAL_CHAR_POSITION);
+    setCharPos(areaHeight / 2);
     setCharState(CharState.IDLE);
   }, [gameStatus]);
 
@@ -104,10 +115,14 @@ export default function Character() {
     return () => clearInterval(intervalId);
   }, [dropCharacter]);
 
-  const charPosStyle = { '--character-position': charPos, '--character-size': CHARACTER_SIZE } as React.CSSProperties;
+  const charPosStyle = {
+    '--character-position': charPos,
+    '--character-size': CHARACTER_SIZE,
+    '--area-height': areaHeight
+  } as React.CSSProperties;
 
   return (
-    <div className={styles.wrapper}>
+    <div ref={wrapperRef} className={styles.wrapper}>
       <div className={styles.characterWrapper}>
         <div ref={ref} style={charPosStyle} className={styles.characterBoundingBox}>
           <div className={`${styles.character} ${styles[CharStateToDirectionClassMap[charState]]}`}>

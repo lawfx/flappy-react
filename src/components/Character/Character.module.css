@@ -13,17 +13,16 @@
 
 .characterWrapper {
   grid-area: character;
-  position: relative;
 }
 
 .characterBoundingBox {
   --character-position: 0;
   --character-size: 65;
+  --area-height: 0;
 
-  position: relative;
-  will-change: top;
-  top: clamp(0%, calc(var(--character-position) * 100%), calc(100% - calc(var(--character-size) * 1px)));
-  transition: top 150ms;
+  will-change: transform;
+  transform: translateY(calc(var(--character-position) * 1px));
+  transition: transform 150ms;
 }
 
 .character {
@@ -38,11 +37,6 @@
 .lookDown {
   transform: rotate(90deg);
   transition: transform 400ms;
-}
-
-.dead {
-  transform: translateY(10px) rotate(90deg);
-  transition: transform 100ms;
 }
 
 .idle {
