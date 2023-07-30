@@ -4,7 +4,7 @@ import styles from './Horizon.module.css';
 import { randomIntFromInterval } from '@/helpers/helpers';
 import useElementWidth from '@/hooks/useElementWidth';
 
-export default function Horizon() {
+export default React.memo(function Horizon() {
   const [buildings, setBuildings] = React.useState<BuildingType[]>([]);
   const refToMeasure = useElementWidth((width: number) => {
     const buildingsNeeded = Math.ceil(width / MINIMUM_BUILDING_WIDTH);
@@ -25,4 +25,4 @@ export default function Horizon() {
       )}
     </div>
   );
-}
+});

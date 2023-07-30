@@ -111,7 +111,7 @@ export default function CollisionDetectionProvider({ children }: CollisionDetect
 
     const intervalId = setInterval(() => {
       checkCollisions();
-    }, 100);
+    }, 33);
 
     return () => clearInterval(intervalId);
   }, [state, gameStatus]);

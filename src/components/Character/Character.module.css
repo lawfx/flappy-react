@@ -39,6 +39,11 @@
   transition: transform 400ms;
 }
 
+.dead {
+  transform: translateY(20px) rotate(90deg);
+  transition: transform 100ms;
+}
+
 .idle {
   animation: fly 500ms ease-in-out infinite alternate;
 }

@@ -12,13 +12,15 @@ import { CollisionDetectionActionType } from '../CollisionDetectionProvider/Coll
 enum CharState {
   IDLE,
   RISING,
-  FALLING
+  FALLING,
+  DEAD
 }
 
 const CharStateToDirectionClassMap: { [key in CharState]: string } = {
   [CharState.IDLE]: 'idle',
   [CharState.RISING]: 'lookUp',
-  [CharState.FALLING]: 'lookDown'
+  [CharState.FALLING]: 'lookDown',
+  [CharState.DEAD]: 'dead'
 }
 
 const CHARACTER_SIZE = 65; //px
@@ -51,18 +53,26 @@ export default function Character() {
   const dropCharacter = React.useCallback(() => {
     if (gameStatus !== GameStatus.Playing && gameStatus !== GameStatus.Ended) return;
 
+    if (charState === CharState.DEAD) return;
+
     const predictedNewCharPos = charPos + CHARACTER_DROP_RATE;
     const newCharPos = predictedNewCharPos <= 1 ? predictedNewCharPos : 1;
     setCharPos(newCharPos);
+
     const newFallingForTime = fallingForTime + DROP_INTERVAL;
     setFallingForTime(newFallingForTime);
+
     if (newFallingForTime >= TIME_PASS_TO_SET_AS_FALLING) {
       setCharState(CharState.FALLING);
     }
+
     if (newCharPos === 1) {
-      gameStateDispatch({ type: GameStateActionType.EndGame });
+      setCharState(CharState.DEAD);
+      if (gameStatus !== GameStatus.Ended) {
+        gameStateDispatch({ type: GameStateActionType.EndGame });
+      }
     }
-  }, [gameStatus, charPos, fallingForTime]);
+  }, [gameStatus, charPos, charState, fallingForTime]);
 
   //setup character for collision detection
   React.useEffect(() => {
