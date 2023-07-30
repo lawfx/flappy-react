@@ -1,0 +1,67 @@
+.building {
+  --height: 100;
+  --color: black;
+
+  background: linear-gradient(0deg, hsla(0, 0%, 0%, 0%) 0, var(--color) 20%, var(--color) 100%);
+  opacity: .4;
+  height: calc(var(--height) * 1px);
+  transition: height 200ms;
+  animation: rise 800ms ease-in-out forwards;
+}
+
+@keyframes rise {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.a {
+  width: 70px;
+
+  clip-path: polygon(0 30%, 100% 0, 100% 100%, 0% 100%);
+}
+
+.a_1 {
+  width: 70px;
+
+  clip-path: polygon(0 0, 100% 30%, 100% 100%, 0% 100%);
+}
+
+.b {
+  width: 100px;
+}
+
+.b_1 {
+  width: 100px;
+}
+
+.b_2 {
+  width: 100px;
+}
+
+.c {
+  width: 100px;
+  clip-path: polygon(50% 0%, 100% 30%, 100% 100%, 0 100%, 0 30%);
+}
+
+.c_1 {
+  width: 100px;
+  clip-path: polygon(50% 0%, 100% 30%, 100% 100%, 0 100%, 0 30%);
+}
+
+.d {
+  width: 100px;
+  clip-path: polygon(50% 40%, 100% 0, 100% 100%, 0 100%, 0 0);
+}
+
+.e {
+  width: 100px;
+  clip-path: polygon(50% 0%, 100% 100%, 100% 100%, 0 100%, 0 100%);
+}
+
+.f {
+  width: 100px;
+  clip-path: polygon(25% 25%, 25% 50%, 0 50%, 0% 75%, 0 100%, 100% 100%, 100% 50%, 75% 50%, 75% 25%, 50% 0);
+
+}

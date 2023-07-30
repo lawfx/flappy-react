@@ -6,6 +6,7 @@ import useGameContext from '@/hooks/useGameContext';
 import { GameStatus } from '../GameProvider/GameProvider';
 import useCollisionDetectionContext from '@/hooks/useCollisionDetectionContext';
 import { CollisionDetectionActionType } from '../CollisionDetectionProvider/CollisionDetectionProvider';
+import useElementWidth from '@/hooks/useElementWidth';
 
 interface Obstacle {
   id: number;
@@ -15,21 +16,17 @@ const TIME_TO_CROSS_HUNDRED_PIXELS = 500; //ms
 const TIME_TO_SPAWN = 1500; //ms
 
 export default function ObstacleCourse() {
-
   const [obstacles, setObstacles] = React.useState<Obstacle[]>([]);
   const [state] = useGameContext();
-  const wrapperRef = React.useRef<HTMLDivElement>(null);
   const [obstacleSpeed, setObstacleSpeed] = React.useState(0);
   const [, collisionDetectionDispatch] = useCollisionDetectionContext();
 
-  const gameStatus = state.status;
-
   //calculate the speed of the obstacles
-  React.useEffect(() => {
-    const width = wrapperRef.current?.offsetWidth;
-    if (!width) return;
+  const wrapperRef = useElementWidth((width: number) => {
     setObstacleSpeed((width / 100) * TIME_TO_CROSS_HUNDRED_PIXELS);
   }, []);
+
+  const gameStatus = state.status;
 
   //spawn obstacles
   React.useEffect(() => {
