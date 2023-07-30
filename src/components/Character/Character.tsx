@@ -25,7 +25,7 @@ const CharStateToDirectionClassMap: { [key in CharState]: string } = {
 
 const CHARACTER_SIZE = 65; //px
 const CHARACTER_DROP_RATE = .04;
-const CHARACTER_BUMP_RATE = .35;
+const CHARACTER_BUMP_RATE = .3;
 const INITIAL_CHAR_POSITION = 0.5;
 const DROP_INTERVAL = 33; //ms
 const TIME_PASS_TO_SET_AS_FALLING = 300; //ms
