@@ -62,7 +62,4 @@ body {
   --border: hsl(335, 15%, 32%);
   --dirt: hsl(54, 59%, 75%);
   --dirt-shadow: hsl(54, 59%, 50%);
-
-  /* tweak */
-  --grass-movement-speed: 10s;
 }
