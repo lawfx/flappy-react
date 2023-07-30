@@ -31,6 +31,7 @@ const TIME_PASS_TO_SET_AS_FALLING = 300; //ms
 
 export default function Character() {
 
+  const [isShown, setIsShown] = React.useState(false);
   const [charPos, setCharPos] = React.useState(0);
   const [charState, setCharState] = React.useState(CharState.IDLE);
   const [areaHeight, setAreaHeight] = React.useState(0);
@@ -44,6 +45,14 @@ export default function Character() {
 
   const MAX_HEIGHT = React.useMemo(() => - CHARACTER_SIZE / 2, []);
   const MIN_HEIGHT = React.useMemo(() => areaHeight - CHARACTER_SIZE / 2, [areaHeight]);
+
+  React.useEffect(() => {
+    const height = wrapperRef.current!.offsetHeight;
+    setAreaHeight(height);
+    setCharPos(height / 2);
+    collisionDetectionDispatch({ type: CollisionDetectionActionType.SetCharacter, ref: ref.current });
+    setIsShown(true);
+  }, []);
 
   const bumpCharacter = React.useCallback(() => {
     setCharPos(pos => {
@@ -78,18 +87,6 @@ export default function Character() {
     }
   }, [gameStatus, charPos, charState, fallingForTime]);
 
-  React.useEffect(() => {
-    const height = wrapperRef.current?.offsetHeight;
-    if (!height) return;
-    setAreaHeight(height);
-    setCharPos(height / 2);
-  }, []);
-
-  //setup character for collision detection
-  React.useEffect(() => {
-    collisionDetectionDispatch({ type: CollisionDetectionActionType.SetCharacter, ref: ref.current });
-  }, []);
-
   //reset character position
   React.useEffect(() => {
     if (gameStatus !== GameStatus.Reset) return;
@@ -118,7 +115,8 @@ export default function Character() {
   const charPosStyle = {
     '--character-position': charPos,
     '--character-size': CHARACTER_SIZE,
-    '--area-height': areaHeight
+    '--area-height': areaHeight,
+    '--is-shown': isShown ? 'block' : 'none'
   } as React.CSSProperties;
 
   return (

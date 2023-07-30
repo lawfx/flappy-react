@@ -20,6 +20,7 @@
   --character-size: 65;
   --area-height: 0;
 
+  display: var(--is-shown);
   will-change: transform;
   transform: translateY(calc(var(--character-position) * 1px));
   transition: transform 150ms;
