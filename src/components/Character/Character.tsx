@@ -21,6 +21,7 @@ const CharStateToDirectionClassMap: { [key in CharState]: string } = {
   [CharState.FALLING]: 'lookDown'
 }
 
+const CHARACTER_SIZE = 65; //px
 const CHARACTER_DROP_RATE = .04;
 const CHARACTER_BUMP_RATE = .35;
 const INITIAL_CHAR_POSITION = 0.5;
@@ -100,7 +101,7 @@ export default function Character() {
       <div className={styles.characterWrapper}>
         <div ref={ref} style={charPosStyle} className={styles.characterBoundingBox}>
           <div className={`${styles.character} ${styles[CharStateToDirectionClassMap[charState]]}`}>
-            <Image width={75} height={75} src={flappyAvatar} alt='' />
+            <Image width={CHARACTER_SIZE} height={CHARACTER_SIZE} src={flappyAvatar} alt='' />
           </div>
         </div>
       </div>
