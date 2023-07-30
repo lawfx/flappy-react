@@ -14,10 +14,11 @@
       hsl(90, 77%, 15%));
   --cap-height: 50;
   --pipe-width: 100;
+  --cap-extra-width: 20;
 }
 
 .cap {
-  width: calc((var(--pipe-width) + 40) * 1px);
+  width: calc((var(--pipe-width) + var(--cap-extra-width)) * 1px);
   min-height: calc(var(--cap-height) * 1px);
   background: var(--gradient);
   border: 3px solid var(--border);
@@ -27,7 +28,8 @@
   width: calc(var(--pipe-width) * 1px);
   height: 100%;
   background: var(--gradient);
-  border: 0 3px solid var(--border);
+  border: solid var(--border);
+  border-width: 0 3px;
 }
 
 .flipped {
