@@ -8,6 +8,7 @@ import GameProvider from '@/components/GameProvider/GameProvider';
 import ObstacleCourse from '@/components/ObstacleCourse/ObstacleCourse';
 import PlayableArea from '@/components/PlayableArea/PlayableArea';
 import ScoreCounter from '@/components/ScoreCounter/ScoreCounter';
+import WhiteOut from '@/components/WhiteOut/WhiteOut';
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
           <ScoreCounter />
         </PlayableArea>
         <EndScreen />
+        <WhiteOut />
       </GameProvider>
     </main>
   )
