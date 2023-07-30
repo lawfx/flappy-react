@@ -16,7 +16,7 @@ enum CharState {
 }
 
 const CharStateToDirectionClassMap: { [key in CharState]: string } = {
-  [CharState.IDLE]: '',
+  [CharState.IDLE]: 'idle',
   [CharState.RISING]: 'lookUp',
   [CharState.FALLING]: 'lookDown'
 }

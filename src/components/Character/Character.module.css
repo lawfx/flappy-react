@@ -38,3 +38,17 @@
   transform: rotate(90deg);
   transition: transform 400ms;
 }
+
+.idle {
+  animation: fly 500ms ease-in-out infinite alternate;
+}
+
+@keyframes fly {
+  from {
+    transform: translateY(-10px);
+  }
+
+  to {
+    transform: translateY(10px);
+  }
+}
