@@ -104,7 +104,7 @@ export default function Character() {
     return () => clearInterval(intervalId);
   }, [dropCharacter]);
 
-  const charPosStyle = { '--character-position': charPos } as React.CSSProperties;
+  const charPosStyle = { '--character-position': charPos, '--character-size': CHARACTER_SIZE } as React.CSSProperties;
 
   return (
     <div className={styles.wrapper}>
